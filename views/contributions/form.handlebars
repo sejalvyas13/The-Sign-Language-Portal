@@ -1,0 +1,24 @@
+<form action="/contributions" method="POST" enctype="multipart/form-data" class="new-search-form">
+    <label>
+        Select type
+        <select name="sl_type">
+            <option value="default">Please choose sign language type</option>
+            <option value="asl">ASL</option>
+            <option value="bsl">BSL</option>
+        </select>
+    </label>
+    <label>
+        Upload sign language media
+        <input type="file" name="sl_media_path" accept="image/*" class="full-width-input" >
+        {{!-- <input type="submit" name="upload"> --}}
+    </label>
+    <label>
+        Add corresponsing english text
+        <input type="text" name="sl_text" placeholder="Sign Language text" class="full-width-input" />
+    </label>
+    {{#if hasError}}
+    <p class="error">Response status code(400):{{error}}</p>
+    {{/if}}
+
+    <button type="submit">Submit</button>
+</form>
