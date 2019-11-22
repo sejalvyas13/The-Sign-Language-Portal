@@ -1,0 +1,32 @@
+{{#each contributions}}
+
+{{!-- <form action="/contributions/pendingContributions" method="POST" enctype="multipart/form-data" class="new-search-form"> --}}
+    <img src="{{this.media_path}}" height="50px" width="50px" />
+
+    <label>
+        Text:
+        <span>{{this.text}}</span>
+    </label>
+
+
+    <select name="sl_level">
+        <option value="default">Please choose sign language level</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="advanced">Advanced</option>
+    </select>
+
+
+    <select name="sl_status">
+        <option value="default">Please select one</option>
+        <option value="approve">Approve</option>
+        <option value="reject">Reject</option>
+    </select>
+
+
+    <input type="hidden" name="contribution_id" value="{{this._id}}" />
+
+    {{!-- <button type="submit">Submit</button> --}}
+{{!-- </form> --}}
+
+{{/each}}

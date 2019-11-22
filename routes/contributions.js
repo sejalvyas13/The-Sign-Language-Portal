@@ -47,13 +47,10 @@ const contributionData = data.contributions;
 //     }
 // });
 
-var multer = require('multer')
-var upload = multer({ dest: 'public/media/' })
+var multer = require('multer');
+var upload = multer({ dest: 'public/media/' });
 
 router.post('/', upload.single('sl_media_path'), async (req, res) => {
-    // info = req.body;
-    // console.log(info);
-    // console.log(req.file)
 
     const tempPath = req.file.path;
     const targetPath = path.join("./" + req.file.destination + req.file.originalname);
@@ -68,60 +65,53 @@ router.post('/', upload.single('sl_media_path'), async (req, res) => {
         } catch (e) {
             res.status(400).json({ error: e });
         }
-        
-        // res.status(200).contentType("text/plain").end("File uploaded!");
     });
-    // res.render("temp/view_image", { sl_media_path: targetPath, title: "People Found" });
-    // } else {
-    //   fs.unlink(tempPath, err => {
-    //     if (err) return handleError(err, res);
-
-    //     res
-    //       .status(403)
-    //       .contentType("text/plain")
-    //       .end("Only .png files are allowed!");
-    //   });
-    // }
-
-
-    // if (!personName) {
-    //     res.status(400);
-    //     res.render("views/form", {
-    //         hasError: true, error: "Please provide person name to search for!", title: "Person Finder"
-    //     });
-    // } else {
-    //     var peopleList = [];
-    //     try {
-    //         peopleList = await searchData.getAllMatchedPeople(personName);
-    //     } catch (e) {
-    //         res.status(400).json({ error: e });
-    //     }
-    //     // console.log(peopleList);
-    //     if (peopleList.length != 0)
-    //         res.render("search/searchresults", { personName: personName, people: peopleList, title: "People Found" });
-    //     else
-    //         res.render("search/notfound", { personName: personName, title: "People Not Found" });
-    // }
+    
 });
 
-// router.get('/:id', async (req, res) => {
-//     try {
-//         const post = await postsData.getPostById(req.params.id);
-//         const animal = await animalsData.get(post.author);
-//         res.json({
-//             _id: post._id,
-//             title: post.title,
-//             content: post.content,
-//             author: {
-//                 _id: post.author,
-//                 name: animal.name
-//             }
-//         });
+router.post('/pendingContributions', async (req, res) => {
 
-//     } catch (e) {
-//         res.status(404).json({ error: 'Post not found' });
-//     }
-// });
+    try {
+        // approve or reject contribution in database
+        const info = req.body;
+        console.log(info);
+        const isApproved = false;
+
+        if(info.sl_status === "approve"){isApproved = true;}
+
+        // remove record from contributions and add it to signs collection if approved
+        await contributionData.approveOrRejectContribution(info.contribution_id, info.level, isApproved); 
+
+        // display all pending contributions
+        const pendingContris = await contributionData.getAllPendingContributions();    
+        const contriArray = []    
+        pendingContris.forEach(c => {
+           console.log(c.media_path+"  ?"); 
+           contriArray.push(c);
+        });
+        res.render("./contributions/pendingContri", { contributions: contriArray, title: "pending reqs" });
+
+    } catch (e) {
+        res.status(500).json({ error: e+'Internal Server occured!' });
+    }
+    
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const pendingContris = await contributionData.getAllPendingContributions();    
+        const contriArray = []    
+        pendingContris.forEach(c => {
+           console.log(c._id+"  ?"); 
+           contriArray.push(c);
+        });
+        res.render("./contributions/pendingContri", { contributions: contriArray, title: "pending reqs" });
+        // res.json(pendingContris);
+
+    } catch (e) {
+        res.status(500).json({ error: e+'Internal Server occured!' });
+    }
+});
 
 // router.put('/:id', async (req, res) => {
 //     const updatedData = req.body;
