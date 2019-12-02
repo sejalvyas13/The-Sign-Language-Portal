@@ -28,12 +28,24 @@
         $.ajax(requestConfig).then(function(responseMessage) {
             var newElement = $(responseMessage);
             document.getElementById('spoken').innerHTML = newElement;
-            var x = document.createElement("IMG");
-            x.setAttribute("src", responseMessage.media_path);
-            x.setAttribute("width", "304");
-            x.setAttribute("height", "228");
-            x.setAttribute("alt", interimTranscript);
-            document.body.appendChild(x);
+            if(document.getElementById('aslImg')){
+                x = document.createElement("IMG");
+                x.setAttribute("src", responseMessage.media_path);
+                x.setAttribute("width", "304");
+                x.setAttribute("height", "228");
+                x.setAttribute("id", "aslImg");
+                x.setAttribute("alt", interimTranscript);
+                document.body.appendChild(x);    
+            }
+            else{
+                var x = document.createElement("IMG");
+                x.setAttribute("src", responseMessage.media_path);
+                x.setAttribute("width", "304");
+                x.setAttribute("height", "228");
+                x.setAttribute("id", "aslImg");
+                x.setAttribute("alt", interimTranscript);
+                document.body.appendChild(x);
+            }
         });
       }
     }

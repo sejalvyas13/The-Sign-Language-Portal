@@ -59,7 +59,7 @@ router.post('/', upload.single('sl_media_path'), async (req, res) => {
     var message = await contributionData.contributeSign("5db104cb47e3ea385c1172f1", req.body.sl_type, targetPath,
         req.body.sl_text);
     /** TODO : Remove this. This is temp hack to directly add signs to DB */
-    await contributionData.approveOrRejectContribution("5de43a4beb7fc8071cf12647", "beginner", true);
+    await contributionData.approveOrRejectContribution("5de440f2bbc5d90890ac1338", "beginner", true);
 
     fs.rename(tempPath, targetPath, err => {
         // if (err) return handleError(err, res);
