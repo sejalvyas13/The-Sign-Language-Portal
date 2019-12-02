@@ -8,7 +8,7 @@ body {
 }
 
 body {
-  background: #b00020;
+  background: #f3c2cb;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
 }
 
@@ -61,7 +61,7 @@ p {
   max-width: 400px;
 }
 .not-found{
-  color: #ffde03;
+  color: #000000;
   font-style: italic;
   font-weight: bold;
 }
@@ -73,22 +73,22 @@ p {
   width: 100%;
 }
 a{
-  color: #ffde03;
+  color: #000000;
 }
 
 dt, li{
-  color: #ffffff;
+  color: #000000;
 }
 
 dd{
-  color: #ffde03;
+  color: #000000;
 }
 
 label {
-  color: #ffde03;
+  color: #000000;
 }
 
 p.error {
-  color: #000;
+  color: #000000;
 }
 

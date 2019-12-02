@@ -20,6 +20,14 @@ const progressData = data.progress;
 // env.addSchema('postAnimal', jsonSchema);
 
 // Sign up
+router.get('/', async (req, res) => {
+    try {
+        res.render("users/profile",{});
+    } catch (e) {
+        res.status(500).json({ error: e });
+    }
+
+});
 router.post('/new', async (req, res) => {
     const userData = req.body;
 

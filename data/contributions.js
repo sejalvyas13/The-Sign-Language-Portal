@@ -1,6 +1,8 @@
 const mongoCollections = require("../config/mongoCollections");
 const contributions = mongoCollections.contributions;
-const signs = require("./signs");
+const data = require("./index");
+
+const signData = require("./signs");
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
@@ -13,7 +15,7 @@ module.exports = {
 
         var signsArray = []
         for (const signId of contribution.contributions) {
-            const sign = await signs.getSignById(signId);
+            const sign = await signData.getSignById(signId);
             signsArray.push(sign);
         }
 
@@ -38,7 +40,7 @@ module.exports = {
 
         const contributionCollection = await contributions();
         const pendingContributions = await contributionCollection.find({ approval_status: "pending" });
-        if (pendingContributions === null) throw "No contributions are pending";    
+        if (pendingContributions === null) throw "No contributions are pending";
 
         return pendingContributions;
     },
@@ -57,7 +59,7 @@ module.exports = {
             media_path: media_path,
             text: text,
             contributions: [],
-            approval_status: "pending"                
+            approval_status: "pending"
         };
 
         const insertInfo = await contributionCollection.insertOne(newSign);
@@ -79,20 +81,29 @@ module.exports = {
         if (!contribution_id) throw "You must provide contribution id to remove a contribution";
 
         // const contributionCollection = await contributions();
-        const contribution = await this.getContributionsByContributionId();
-        await this.remove(contribution_id);
+        const contribution = await this.getContributionsByContributionId(contribution_id);
 
-        if(isApproved){
+        if (isApproved) {
             const updatedSign = {
                 language_type: contribution.language_type,
                 level: level,
-                media_path:  contribution.media_path,
-                text:  contribution.text,
+                media_path: contribution.media_path,
+                text: contribution.text,
                 contributor_id: contribution.contributor_id
-            };
-            const message = await signs.addSign(updatedSign);
+            }
+            try {
+                const message = await signData.addSign(updatedSign);
+                //await signData.getAllBeginnerSigns();
+                
+                /** TODO: Uncomment below line later */
+                //await this.remove(contribution_id);
+            }
+            catch (e) {
+                console.log("addSign : " + e);
+            }
+
         }
-        else{
+        else {
             // do something
         }
     }

@@ -1,6 +1,5 @@
 const mongoCollections = require("../config/mongoCollections");
 const signs = mongoCollections.signs;
-const contributions = require("./contributions");
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
@@ -26,7 +25,7 @@ module.exports = {
     },
     async getAllBeginnerSigns() {
         const signCollection = await signs();
-
+        console.log("In getAllBeginnerSigns");
         const allBeginnerSigns = await signCollection.find({level:"beginner"}).toArray();
 
         return allBeginnerSigns;
@@ -54,7 +53,7 @@ module.exports = {
             language_type: signObj.language_type,
             level: signObj.level,
             media_path: signObj.media_path,
-            text: signObj.text,
+            text: signObj.text.toLowerCase(),
             contributor_id: signObj.contributor_id
         };
 
@@ -62,7 +61,8 @@ module.exports = {
         if (insertInfo.insertedCount === 0) throw "Could not add sign";
 
         // remove sign from contributions collection
-        await contributions.remove(signObj.contributor_id);
+        /** TODO: Add this function wherever addSign is called */
+        //await contributions.remove(signObj.contributor_id);
 
         return "Sign Added!";
     },
@@ -78,6 +78,7 @@ module.exports = {
         }
 
         // update signs into corresponding contributions collection
-        await contributions.updateContribution(signTobeDeleted.contributor_id, signId);
+        /** TODO: Add this function wherever addSign is called */
+        //await contributions.updateContribution(signTobeDeleted.contributor_id, signId);
     }
 };
