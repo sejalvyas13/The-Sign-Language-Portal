@@ -70,8 +70,8 @@ async function runSetup() {
             imgList.push({
                 language_type: 'ASL',
                 level: 'beginner',
-                media_path: "public/media/" + file,
-                text: file.toLowerCase(),
+                media_path: "http://localhost:3000/public/media/" + file,
+                text: file.substring(0,file.length-4),
                 contributor_id: userObj._id
             });
 
