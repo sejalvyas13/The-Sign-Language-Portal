@@ -8,7 +8,7 @@
         <input type="password" name="password" id="password" placeholder="password" class="full-width-input" required />
     </label>
     {{#if hasError}}
-    <p class="error">Response status code(401): Please provide valid username and/or password</p>
+    <p class="error">{{error}}</p>
     {{/if}}
 
     <button type="submit">Login</button>

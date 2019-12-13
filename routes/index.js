@@ -9,22 +9,34 @@ const quizRoutes = require('./quiz');
 const signupRoutes = require('./signup');
 const loginRoutes = require('./login');
 
+const session = require('express-session');
+
 
 const constructorMethod = (app) => {
+  // const app = express();
+  // Middleware:
+  app.use(session({
+    name: 'AuthCookie',
+    secret: 'my auth cookie',
+    resave: false,
+    saveUninitialized: true
+  }));
+
   app.use('/users', usersRoutes);
   app.use('/signs', signsRoutes);
   app.use('/contributions', contributionsRoutes);
   app.use('/progress', progressRoutes);
-  app.use('/dashboard',dashboardRoutes);
-  app.use('/translate',translateRoutes);
-  app.use('/learning',learningRoutes);
-  app.use('/quiz',quizRoutes);
+  app.use('/dashboard', dashboardRoutes);
+  app.use('/translate', translateRoutes);
+  app.use('/learning', learningRoutes);
+  app.use('/quiz', quizRoutes);
   app.use('/signup', signupRoutes);
-  app.use('/login',loginRoutes);
+  app.use('/login', loginRoutes);
 
 
   app.get("/", (req, res) => {
     /** should re-direct to login screen */
+    res.redirect("/login");
   });
 
   // app.get("/pendingContributions", (req, res) => {

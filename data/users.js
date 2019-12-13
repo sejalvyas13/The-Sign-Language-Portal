@@ -81,6 +81,26 @@ module.exports = {
         return user;
     },
 
+    async getUserByUsername(username) {
+        // error checking
+        if (!username) throw "You must provide your username";
+
+        // // add password hashing function
+        // hashedPwd = getHashedPwd(password);
+
+        // get db connection to user collection
+        const usersCollection = await users();
+
+        // perform search
+        const user = await usersCollection.findOne({ username: username.toLowerCase() });
+        if (user === null) throw "No user with given username";
+        // else if (hashedPwd && user.hashedPwd != hashedPwd) throw "Password doesn't match";
+
+        // user._id = user._id.toString();
+        // console.log(typeof user._id);
+        return user;
+    },
+
     async remove(id) {
         // error checking
         if (!id) throw "You must provide an id";
