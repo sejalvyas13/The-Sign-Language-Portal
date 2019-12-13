@@ -11,6 +11,7 @@
             dataType: 'json',
             data: { 'quiz_type': quiz_type },
             success: function (data) {
+                var totalQues = data.length;
                 console.log("signs array", data);
                 console.log("array length", data.length);
 
@@ -19,7 +20,7 @@
                 var signsArr = data;
                 var queCount = 0;
                 var correctAnsCount = 0;
-                
+
                 var img = $("#sign_media");
                 var sign_text = $("#sign_text");
                 var submitAns = $("#btn_submit");
@@ -29,9 +30,50 @@
                 img.attr("src", signsArr[queCount].media_path);
 
                 submitAns.click(function (ev) {
+
                     if (sign_text.val() == signsArr[queCount].text) {
                         correctAnsCount += 1;
                     }
+                    
+                    if (queCount == totalQues - 2) {
+                        submitAns.html("Finish");
+                    } else if (queCount == totalQues - 1) {
+                        var dataObj = {
+                            'user_id': "5df37115f775c81004ee2594",
+                            'quiz_type': quiz_type,
+                            'beginner': correctAnsCount
+                        };
+
+                        if (quiz_type == "intermediate") {
+                            dataObj = {
+                                'user_id': "5df37115f775c81004ee2594",
+                                'quiz_type': quiz_type,
+                                'intermediate': correctAnsCount
+                            };
+                        } else if (quiz_type == "advanced") {
+                            dataObj = {
+                                'user_id': "5df37115f775c81004ee2594",
+                                'quiz_type': quiz_type,
+                                'advanced': correctAnsCount
+                            }
+                        }
+                        //update quiz score
+                        $.ajax({
+                            url: "/progress/",
+                            type: 'post',
+                            dataType: 'json',
+                            data: dataObj,
+                            success: function (data) {
+                                console.log("back from progress", data);
+                                window.location.href = "/quiz/";
+                            },
+                            error: function (data) {
+                                console.log("back from progress", data.status);
+                                console.log("back from progress", data.responseText);
+                            }
+                        });
+                    }
+                    
                     queCount += 1;
 
                     img.attr("src", signsArr[queCount].media_path);

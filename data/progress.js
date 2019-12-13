@@ -1,6 +1,5 @@
 const mongoCollections = require("../config/mongoCollections");
 const progress = mongoCollections.progress;
-// const animals = require("./animals");
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
@@ -9,10 +8,20 @@ module.exports = {
         if (typeof (id) != 'string') throw "id should be a string";
 
         const progressCollection = await progress();
-        const progress = await progressCollection.findOne({ _id: ObjectId(id) });
-        if (progress === null) throw "No progress record with given id";
+        const userProgress = await progressCollection.findOne({ _id: ObjectId(id) });
+        if (userProgress === null) throw "No progress record with given id";
 
-        return progress;
+        return userProgress;
+    },
+    async getProgressByUserId(user_id) {
+        if (!user_id) throw "You must provide user id to search for post";
+        if (typeof (user_id) != 'string') throw "user id should be a string";
+
+        const progressCollection = await progress();
+        const userProgress = await progressCollection.findOne({ user_id: ObjectId(user_id) });
+        if (userProgress === null) throw "No progress record with given user id";
+
+        return userProgress;
     },
     async addProgress(user_id) {
         if (!user_id) throw "You must provide user id";
@@ -22,20 +31,13 @@ module.exports = {
         const newProgressInfo = {
             user_id: ObjectId(user_id),
             scores: {
-                beginner1: 0,
-                beginner2: 0,
-                beginner3: 0,
-                intermediate1: 0,
-                intermediate2: 0,
+                beginner: 0,
+                intermediate: 0,
                 advanced: 0,
-                pro: 0,
             },
             learning_progress: {
-                beginner1: 0,
-                beginner2: 0,
-                beginner3: 0,
-                intermediate1: 0,
-                intermediate2: 0,
+                beginner: 0,
+                intermediate: 0,
                 advanced: 0
             },
             learned_sl: [],
@@ -60,8 +62,72 @@ module.exports = {
             throw `Could not delete progress with id of ${user_id}`;
         }
     },
+
+async updateQuizScoresProgress(user_id, scores) {
+        if (!user_id) throw "You must provide user id to update progress record";
+
+        // const { scores, learning_progress, learned_sl, badges } = updateProperties;
+
+        const progressCollection = await progress();
+        console.log("updated scores inside", scores);
+        // let updatedProgress;
+
+        if (scores) {            
+
+            // updatedProgress = {
+            //     user_id: ObjectId(user_id),
+            //     scores: scores,
+            //     learning_progress: learning_progress,
+            //     learned_sl: learned_sl,
+            //     badges: badges
+            // };
+            const updatedInfo = await progressCollection.update(  
+                { user_id: ObjectId(user_id) }, 
+                { $set: { scores: scores  } } 
+            );
+
+            if (updatedInfo.modifiedCount === 0) {
+                throw "could not update progress record successfully";
+            }
+        } else throw "some of the progress fields are missing";     
+
+        return "Scores updated!";
+    },
+
+    async updateLearningScoresProgress(user_id, scores) {
+        if (!user_id) throw "You must provide user id to update progress record";
+
+        // const { scores, learning_progress, learned_sl, badges } = updateProperties;
+
+        const progressCollection = await progress();
+        console.log("updated scores inside", scores);
+
+        // let updatedProgress;
+
+        if (scores) {            
+
+            // updatedProgress = {
+            //     user_id: ObjectId(user_id),
+            //     scores: scores,
+            //     learning_progress: learning_progress,
+            //     learned_sl: learned_sl,
+            //     badges: badges
+            // };
+            const updatedInfo = await progressCollection.update(  
+                { user_id: ObjectId(user_id) }, 
+                { $set: { learning_progress: scores  } } 
+            );
+
+            if (updatedInfo.modifiedCount === 0) {
+                throw "could not update progress record successfully";
+            }
+        } else throw "some of the progress fields are missing";     
+
+        return "Scores updated!";
+    },
+
     async updateProgress(user_id, updateProperties) {
-        if (!user_id) throw "You must provide user id to delete progress record";
+        if (!user_id) throw "You must provide user id to update progress record";
 
         const { scores, learning_progress, learned_sl, badges } = updateProperties;
 

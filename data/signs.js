@@ -23,27 +23,34 @@ module.exports = {
 
         return sign;
     },
-    async getAllBeginnerSigns() {
+    async getSignsByType(sign_type) {
         const signCollection = await signs();
-        console.log("In getAllBeginnerSigns");
-        const allBeginnerSigns = await signCollection.find({level:"beginner"}).toArray();
+        console.log("In getSignsByType");
+        const allSigns = await signCollection.find({level:sign_type}).toArray();
 
-        return allBeginnerSigns;
+        return allSigns;
     },
-    async getAllIntermediateSigns() {
-        const signCollection = await signs();
+    // async getAllBeginnerSigns() {
+    //     const signCollection = await signs();
+    //     console.log("In getAllBeginnerSigns");
+    //     const allBeginnerSigns = await signCollection.find({level:"beginner"}).toArray();
 
-        const allIntermediateSigns = await signCollection.find({level:"intermediate"}).toArray();
+    //     return allBeginnerSigns;
+    // },
+    // async getAllIntermediateSigns() {
+    //     const signCollection = await signs();
 
-        return allIntermediateSigns;
-    },
-    async getAllAdvancedSigns() {
-        const signCollection = await signs();
+    //     const allIntermediateSigns = await signCollection.find({level:"intermediate"}).toArray();
 
-        const allAdvancedSigns = await signCollection.find({level:"advanced"}).toArray();
+    //     return allIntermediateSigns;
+    // },
+    // async getAllAdvancedSigns() {
+    //     const signCollection = await signs();
 
-        return allAdvancedSigns;
-    },
+    //     const allAdvancedSigns = await signCollection.find({level:"advanced"}).toArray();
+
+    //     return allAdvancedSigns;
+    // },
     async addSign(signObj) {
         if (!signObj) throw "sign object doesn't exists";
 
