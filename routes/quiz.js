@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
     console.log("body", req.body);
     var quiz_type = req.body.quiz_type;
     // var quiz_type = 'beginner';
-    const allSigns = await signs.getSignsByType(quiz_type);
+    const allSigns = await signs.getAllSigns("ASL", quiz_type);
     try {
         res.send(JSON.stringify(allSigns));
         // res;
