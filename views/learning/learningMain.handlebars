@@ -1,1 +1,26 @@
-<div>You're in Learning Module!</div>
+<div>
+    <!--- TODO : Think of some creative design  -->
+    <form method="POST" action="/learning/card">
+        <div>Select language</div>
+        <div id="radioDiv">
+            <input type="radio" name="language" value="ASL"> ASL<br>
+            <input type="radio" name="language" value="BSL"> BSL<br>
+        </div>
+
+        <div>Select level</div>
+        <input type="radio" name="level" value="beginner"> Beginner<br>
+        <input type="radio" name="level" value="intermediate"> Intermediate<br>
+        <input type="radio" name="level" value="advanced"> Advanced<br>
+
+        <button id="next" type="submit">Next</button>
+    </form>
+    
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+        <!--
+<script src="/public/js/learning.js"></script>
+-->

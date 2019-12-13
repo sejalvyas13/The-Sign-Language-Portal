@@ -6,7 +6,33 @@ const api = require('./quickstart');
 const seed = require('./seed');
 
 const configRoutes = require("./routes");
+
 const exphbs = require("express-handlebars");
+
+const Handlebars = require('handlebars');
+
+Handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
+Handlebars.registerHelper('notEqual', function(lvalue, rvalue, options) {
+  if (arguments.length < 3)
+      throw new Error("Handlebars Helper equal needs 2 parameters");
+  if( lvalue==rvalue ) {
+      return options.inverse(this);
+  } else {
+      return options.fn(this);
+  }
+});
+Handlebars.registerHelper('equal', function(lvalue, rvalue, options) {
+  if (arguments.length < 3)
+      throw new Error("Handlebars Helper equal needs 2 parameters");
+  if( lvalue!=rvalue ) {
+      return options.inverse(this);
+  } else {
+      return options.fn(this);
+  }
+});
 
 app.use("/public", static);
 app.use(bodyParser.json());
@@ -16,6 +42,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 configRoutes(app);
+
 
 async function main(){
   try{

@@ -36,10 +36,10 @@ async function main() {
   const transcription = response.results
     .map(result => result.alternatives[0].transcript)
     .join('\n');
-  console.log(`Transcription: ${transcription}`);
-  console.log(typeof transcription)
-  console.log(response)
-  console.log(response.alternatives)
+  //console.log(`Transcription: ${transcription}`);
+  //console.log(typeof transcription)
+  //console.log(response)
+  //console.log(response.alternatives)
 }
 main().catch(console.error);
 // [END speech_quickstart]

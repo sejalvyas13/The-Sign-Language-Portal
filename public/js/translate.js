@@ -28,8 +28,9 @@
         $.ajax(requestConfig).then(function(responseMessage) {
             var newElement = $(responseMessage);
             document.getElementById('spoken').innerHTML = newElement;
+            /**TODO : Convert this piece into jquery */
             if(document.getElementById('aslImg')){
-                // x = document.createElement("IMG");
+                x = document.getElementById('aslImg');
                 x.setAttribute("src", responseMessage.media_path);
                 x.setAttribute("width", "304");
                 x.setAttribute("height", "228");

@@ -13,6 +13,8 @@ router.post('/fromText', async (req, res) => {
         res.json(signObj);
         
     } catch (e) {
+        console.log("in fromText")
+        console.log(e)
         res.status(500).json({ error: e });
     }
 });

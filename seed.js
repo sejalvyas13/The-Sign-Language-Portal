@@ -68,7 +68,7 @@ async function runSetup() {
     var imgList = []
 
     fs.readdirSync(folder).forEach(file => {
-            console.log(file);
+            //console.log(file);
             imgList.push({
                 language_type: 'ASL',
                 level: 'beginner',
@@ -78,7 +78,7 @@ async function runSetup() {
             });
 
     });
-    console.log("imglist" + imgList)
+    //console.log("imglist" + imgList)
 
     await signsCollection.insertMany(imgList);
 

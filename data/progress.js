@@ -18,6 +18,7 @@ module.exports = {
         if (typeof (user_id) != 'string') throw "user id should be a string";
 
         const progressCollection = await progress();
+        console.log(ObjectId(user_id))
         const userProgress = await progressCollection.findOne({ user_id: ObjectId(user_id) });
         if (userProgress === null) throw "No progress record with given user id";
 
@@ -63,7 +64,7 @@ module.exports = {
         }
     },
 
-async updateQuizScoresProgress(user_id, scores) {
+    async updateQuizScoresProgress(user_id, scores) {
         if (!user_id) throw "You must provide user id to update progress record";
 
         // const { scores, learning_progress, learned_sl, badges } = updateProperties;
@@ -94,8 +95,9 @@ async updateQuizScoresProgress(user_id, scores) {
         return "Scores updated!";
     },
 
-    async updateLearningScoresProgress(user_id, scores) {
+    async updateLearningScoresProgress(user_id, scores, sign_id) {
         if (!user_id) throw "You must provide user id to update progress record";
+        if (!sign_id) throw "You must provide user id to update progress record";
 
         // const { scores, learning_progress, learned_sl, badges } = updateProperties;
 
@@ -115,7 +117,8 @@ async updateQuizScoresProgress(user_id, scores) {
             // };
             const updatedInfo = await progressCollection.update(  
                 { user_id: ObjectId(user_id) }, 
-                { $set: { learning_progress: scores  } } 
+                { $set: { learning_progress: scores  },
+                  $push :{learned_sl : ObjectId(sign_id)} } 
             );
 
             if (updatedInfo.modifiedCount === 0) {

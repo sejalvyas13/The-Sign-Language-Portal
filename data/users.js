@@ -77,7 +77,6 @@ module.exports = {
         else if (hashedPwd && user.hashedPwd != hashedPwd) throw "Password doesn't match";
 
         user._id = user._id.toString();
-        console.log(typeof user._id);
         return user;
     },
 
