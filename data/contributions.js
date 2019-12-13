@@ -71,7 +71,7 @@ module.exports = {
         if (!contribution_id) throw "You must provide contributor id to remove a contribution";
 
         const contributionCollection = await contributions();
-        const deletionInfo = await contributionCollection.removeOne({ contribution_id: ObjectId(contribution_id) });
+        const deletionInfo = await contributionCollection.removeOne({ _id: ObjectId(contribution_id) });
 
         if (deletionInfo.deletedCount === 0) {
             throw `Could not delete contribution with id of ${contribution_id}`;
@@ -106,5 +106,6 @@ module.exports = {
         else {
             // do something
         }
+        return "ok";
     }
 };
