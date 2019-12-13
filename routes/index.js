@@ -6,7 +6,8 @@ const dashboardRoutes = require('./dashboard');
 const translateRoutes = require('./translate');
 const learningRoutes = require('./learning');
 const quizRoutes = require('./quiz');
-
+const signupRoutes = require('./signup');
+const loginRoutes = require('./login');
 
 
 const constructorMethod = (app) => {
@@ -18,6 +19,8 @@ const constructorMethod = (app) => {
   app.use('/translate',translateRoutes);
   app.use('/learning',learningRoutes);
   app.use('/quiz',quizRoutes);
+  app.use('/signup', signupRoutes);
+  app.use('/login',loginRoutes);
 
 
   app.get("/", (req, res) => {

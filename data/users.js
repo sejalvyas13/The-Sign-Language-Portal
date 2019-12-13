@@ -7,6 +7,8 @@ module.exports = {
 
     async create(firstname, lastname, username, hashedPwd) {
 
+        console.log("inside user create");
+
         // error checking
         if (!firstname) throw "You must provide your firstname";
         if (!lastname) throw "You must provide your lastname";
@@ -32,7 +34,25 @@ module.exports = {
         const insertInfo = await usersCollection.insertOne(newUser);
         if (insertInfo.insertedCount === 0) throw "Could not add user";
 
-        return await this.get(insertInfo.insertedId.toString());
+        //TODO: response can be removed
+        return await this.getUserById(insertInfo.insertedId.toString());
+    },
+
+    async getUserById(id) {
+        // error checking
+        if (!id) throw "You must provide user id";
+
+        // get db connection to user collection
+        const usersCollection = await users();
+
+        // perform search
+        const user = await usersCollection.findOne({ _id: ObjectId(id) });
+        if (user === null) throw "No user with given username";
+        // else if (hashedPwd && user.hashedPwd != hashedPwd) throw "Password doesn't match";
+
+        // user._id = user._id.toString();
+        // console.log(typeof user._id);
+        return user;
     },
 
     async getAll() {
