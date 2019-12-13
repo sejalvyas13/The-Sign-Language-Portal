@@ -56,17 +56,21 @@ router.post('/', upload.single('sl_media_path'), async (req, res) => {
     const targetPath = path.join("./" + req.file.destination + req.file.originalname);
     console.log(targetPath);
     // if (path.extname(req.file.originalname).toLowerCase() === ".png") {
+    var message = await contributionData.contributeSign("5db104cb47e3ea385c1172f1", req.body.sl_type, targetPath,
+        req.body.sl_text);
+    /** TODO : Remove this. This is temp hack to directly add signs to DB */
+    await contributionData.approveOrRejectContribution("5de440f2bbc5d90890ac1338", "beginner", true);
+
     fs.rename(tempPath, targetPath, err => {
         // if (err) return handleError(err, res);
         try {
-            var message = contributionData.contributeSign("5db104cb47e3ea385c1172f1", req.body.sl_type, targetPath, 
-                                                            req.body.sl_text);
+
             res.render("temp/view_image", { sl_media_path: targetPath, title: "Title" });
         } catch (e) {
             res.status(400).json({ error: e });
         }
     });
-    
+
 });
 
 router.post('/pendingContributions', async (req, res) => {
@@ -77,7 +81,7 @@ router.post('/pendingContributions', async (req, res) => {
         console.log(info);
         var isApproved = false;
 
-        if(info.sl_status === "approve"){isApproved = true;}
+        if (info.sl_status === "approve") { isApproved = true; }
 
         // remove record from contributions and add it to signs collection if approved
         var msg = await contributionData.approveOrRejectContribution(info.contribution_id, info.level, isApproved); 
@@ -95,24 +99,26 @@ router.post('/pendingContributions', async (req, res) => {
         // res.json({success : msg, status : 200});
 
     } catch (e) {
-        res.status(500).json({ error: e+'Internal Server occured!' });
+        res.status(500).json({ error: e + 'Internal Server occured!' });
     }
-    
+
 });
 
 router.get('/', async (req, res) => {
     try {
-        const pendingContris = await contributionData.getAllPendingContributions();    
-        const contriArray = []; 
+        res.render("contributions/form", { hasError: false, error: "", title: 'Title' });
+        const pendingContris = await contributionData.getAllPendingContributions();
+        const contriArray = []
         pendingContris.forEach(c => {
-           console.log(c._id+"  ?"); 
-           contriArray.push(c);
+            console.log(c._id + "  ?");
+            contriArray.push(c);
         });
-        res.render("./contributions/pendingContri", { contributions: contriArray, title: "pending reqs"});
+        //Below page is for showing all the pending requests
+        //res.render("./contributions/pendingContri", { contributions: contriArray, title: "pending reqs" });
         // res.json(pendingContris);
 
     } catch (e) {
-        res.status(500).json({ error: e+'Internal Server occured!' });
+        res.status(500).json({ error: e + 'Internal Server occured!' });
     }
 });
 
