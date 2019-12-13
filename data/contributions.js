@@ -1,6 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const contributions = mongoCollections.contributions;
-const signs = require("./signs");
+const signs = mongoCollections.signs; // require("./signs");
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
@@ -69,7 +69,7 @@ module.exports = {
         if (!contribution_id) throw "You must provide contributor id to remove a contribution";
 
         const contributionCollection = await contributions();
-        const deletionInfo = await contributionCollection.removeOne({ contribution_id: ObjectId(contribution_id) });
+        const deletionInfo = await contributionCollection.removeOne({ _id: ObjectId(contribution_id) });
 
         if (deletionInfo.deletedCount === 0) {
             throw `Could not delete contribution with id of ${contribution_id}`;
@@ -79,21 +79,22 @@ module.exports = {
         if (!contribution_id) throw "You must provide contribution id to remove a contribution";
 
         // const contributionCollection = await contributions();
-        const contribution = await this.getContributionsByContributionId();
+        const contribution = await this.getContributionsByContributionId(contribution_id);
         await this.remove(contribution_id);
 
         if(isApproved){
-            const updatedSign = {
+            var updatedSign = {
                 language_type: contribution.language_type,
                 level: level,
                 media_path:  contribution.media_path,
                 text:  contribution.text,
                 contributor_id: contribution.contributor_id
             };
-            const message = await signs.addSign(updatedSign);
+            var message = await signs.addSign(updatedSign);
         }
         else{
             // do something
         }
+        return "ok";
     }
 };

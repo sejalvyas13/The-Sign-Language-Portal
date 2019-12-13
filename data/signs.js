@@ -50,7 +50,7 @@ module.exports = {
 
         const signCollection = await signs();
 
-        const newSign = {
+        var newSign = {
             language_type: signObj.language_type,
             level: signObj.level,
             media_path: signObj.media_path,

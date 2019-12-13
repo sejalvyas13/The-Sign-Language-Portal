@@ -75,21 +75,24 @@ router.post('/pendingContributions', async (req, res) => {
         // approve or reject contribution in database
         const info = req.body;
         console.log(info);
-        const isApproved = false;
+        var isApproved = false;
 
         if(info.sl_status === "approve"){isApproved = true;}
 
         // remove record from contributions and add it to signs collection if approved
-        await contributionData.approveOrRejectContribution(info.contribution_id, info.level, isApproved); 
+        var msg = await contributionData.approveOrRejectContribution(info.contribution_id, info.level, isApproved); 
 
         // display all pending contributions
-        const pendingContris = await contributionData.getAllPendingContributions();    
-        const contriArray = []    
-        pendingContris.forEach(c => {
-           console.log(c.media_path+"  ?"); 
-           contriArray.push(c);
-        });
-        res.render("./contributions/pendingContri", { contributions: contriArray, title: "pending reqs" });
+        // const pendingContris = await contributionData.getAllPendingContributions();    
+        // const contriArray = []    
+        // pendingContris.forEach(c => {
+        //    console.log(c.media_path+"  ?"); 
+        //    contriArray.push(c);
+        // });
+        // res.render("./contributions/pendingContri", { contributions: contriArray, title: "pending reqs" });
+        // res.sendStatus(200).json({message:msg});
+        res.end(JSON.stringify({success : msg, status : 200}));
+        // res.json({success : msg, status : 200});
 
     } catch (e) {
         res.status(500).json({ error: e+'Internal Server occured!' });
@@ -100,12 +103,12 @@ router.post('/pendingContributions', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const pendingContris = await contributionData.getAllPendingContributions();    
-        const contriArray = []    
+        const contriArray = []; 
         pendingContris.forEach(c => {
            console.log(c._id+"  ?"); 
            contriArray.push(c);
         });
-        res.render("./contributions/pendingContri", { contributions: contriArray, title: "pending reqs" });
+        res.render("./contributions/pendingContri", { contributions: contriArray, title: "pending reqs"});
         // res.json(pendingContris);
 
     } catch (e) {
