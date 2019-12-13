@@ -16,34 +16,20 @@ module.exports = {
     async getSignByText(text) {
         if (!text) throw "You must provide text to search for sign";
         if (typeof(text) != 'string') throw "text should be a string";
-
+        console.log("text is " + text)
         const signCollection = await signs();
         const sign = await signCollection.findOne({ text: text.toLowerCase() });
         if (sign === null) throw "No sign with that id";
 
         return sign;
     },
-    async getAllBeginnerSigns() {
+    async getAllSigns(language, level) {
         const signCollection = await signs();
-        console.log("In getAllBeginnerSigns");
-        const allBeginnerSigns = await signCollection.find({level:"beginner"}).toArray();
-
-        return allBeginnerSigns;
+        //console.log("In getAllBeginnerSigns");
+        const allSigns = await signCollection.find({language_type : language,level:level}).toArray();
+        return allSigns;
     },
-    async getAllIntermediateSigns() {
-        const signCollection = await signs();
-
-        const allIntermediateSigns = await signCollection.find({level:"intermediate"}).toArray();
-
-        return allIntermediateSigns;
-    },
-    async getAllAdvancedSigns() {
-        const signCollection = await signs();
-
-        const allAdvancedSigns = await signCollection.find({level:"advanced"}).toArray();
-
-        return allAdvancedSigns;
-    },
+    
     async addSign(signObj) {
         if (!signObj) throw "sign object doesn't exists";
 
