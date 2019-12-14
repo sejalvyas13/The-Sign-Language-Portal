@@ -10,7 +10,10 @@
     </label>
     <label>
         Enter your username
+        <div>
         <input type="text" name="username" id="username" placeholder="username" class="full-width-input" required />
+        <span id="unError" hidden></span>
+        </div>
     </label>
     <label>
         Enter your password
@@ -20,5 +23,5 @@
     <p class="error">Response status code(401): Please provide valid username and/or password</p>
     {{/if}} --}}
 
-    <button type="submit">Sign Up</button>
+    <button type="submit" id="signupBtn">Sign Up</button>
 </form>

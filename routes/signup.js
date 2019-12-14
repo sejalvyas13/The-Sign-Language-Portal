@@ -19,6 +19,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.post('/checkUser', async (req, res) => {
+    try {
+        console.log("username", req.body.username);
+        const user_id = await usersData.getUserByUsername(req.body.username);
+        res.status(200).json({message: "Username already exist. Please choose different username"});
+    } catch (e) {
+        res.status(200).json({ message: "" });
+    }
+});
+
 router.post('/', async (req, res) => {
     //destroy any previous session
     if (req.session.AuthCookie !== undefined) {
