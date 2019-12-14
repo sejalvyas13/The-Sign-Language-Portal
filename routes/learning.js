@@ -37,11 +37,7 @@ router.post('/card', async (req, res) => {
             const signsData = await signs.getAllSigns(req.body.language, req.body.level);
             console.log(signsData);
             if(req.body.counter){
-                //res.render("learning/learningCard", {sign : signsData[req.body.counter]});  
-                //TODO : Update score
-                //const progressUpdate = await progress.updateLearningScoresProgress();
-                console.log("Counter "+counter)
-                //res.send(signsData[req.body.counter])
+                
                 res.send(signsData)
             }
             else{

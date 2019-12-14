@@ -31,6 +31,28 @@
                 level.text(signsData[counter].level);
                 signText.text(signsData[counter].text);
 
+                var dataObj = {
+                    level : signsData[0].level,
+                    //user_id: "5df3f5d757dc2a83982dc82e",
+                    sign_id: signsData[0]._id,
+                    learningScore:1 
+                };
+
+                $.ajax({
+                    url: "/progress/learningProgress",
+                    type: 'post',
+                    dataType: 'json',
+                    data: dataObj,
+                    success: function (data) {
+                        console.log("back from progress", data);
+                        //window.location.href = "/learning/card";
+                    },
+                    error: function (data) {
+                        console.log("back from progress", data.status);
+                        console.log("back from progress", data.responseText);
+                    }
+                });
+
                 learnNextBtn.click(function(event){
                     counter++; 
                     //TODO : Update progress here
@@ -41,9 +63,9 @@
 
                     var dataObj = {
                         level : signsData[counter].level,
-                        user_id: "5df3f5d757dc2a83982dc82e",
+                        //user_id: "5df3f5d757dc2a83982dc82e",
                         sign_id: signsData[counter]._id,
-                        learningScore:counter 
+                        learningScore:counter+1 
                     };
 
                     $.ajax({

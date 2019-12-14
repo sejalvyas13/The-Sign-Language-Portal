@@ -13,6 +13,21 @@ module.exports = {
 
         return sign;
     },
+
+    async getSignByArrayOfIds(ids) {
+        if (!ids) throw "You must provide ids to search for sign";
+        //if (typeof(id) != 'string') throw "id should be a string";
+        if(ids.length == 0) throw "Provide at least one Id"
+
+        const signCollection = await signs();
+        console.log("we're in getSignByArrayOfId, printing")
+        console.log(ids)
+        const sign = await signCollection.findOne({ _id: {$in : ids} });
+        if (sign === null) throw "No sign with that id";
+
+        return sign;
+    },
+
     async getSignByText(text) {
         if (!text) throw "You must provide text to search for sign";
         if (typeof(text) != 'string') throw "text should be a string";

@@ -9,7 +9,7 @@ async function runSetup() {
     try {
         // We can recover from this; if it can't drop the collection, it's because
         await db.collection('signs').drop();
-        await db.collection('users').drop();
+        //await db.collection('users').drop();
         await db.collection('progress').drop();
     } catch (e) {
         
@@ -69,11 +69,13 @@ async function runSetup() {
 
     fs.readdirSync(folder).forEach(file => {
             //console.log(file);
+            //TODO : dynamic path extraction
+            //TODO : 
             imgList.push({
                 language_type: 'ASL',
                 level: 'beginner',
                 media_path: "http://localhost:3000/public/media/" + file,
-                text: file.substring(0,file.length-4),
+                text: (file.substring(0,file.length-4)).toLowerCase(),
                 contributor_id: user1Obj._id
             });
 

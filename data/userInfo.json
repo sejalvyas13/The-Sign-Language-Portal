@@ -1,0 +1,7 @@
+{"_id": null,
+    "firstname": null,
+    "lastname": null,
+    "username": null,
+    "hashedPwd":null,
+    "userType": "normal",
+    "profileViews": 0 }
