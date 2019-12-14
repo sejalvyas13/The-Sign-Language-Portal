@@ -41,16 +41,41 @@
     <header id="mainHeader">
         
             The Sign Language Portal
+            {{!-- <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100" style="width:700px;">
+            <div id="filters" class="filters">
+              <a href="#" data-filter="*" class="active">All</a>
+              <a href="#" data-filter=".web">Contribute</a>
+              <a href="#" data-filter=".design">Profile</a>
+              <a href="#" data-filter=".branding">Translate</a>
+              <a href="#" data-filter=".photography">Learn</a>
+            </div>
+          </div> --}}
+
+          {{#if isDisplayLogout}}
+          <div>
+            <div class="filters2">
+              <a href="/dashboard" class="active">Home</a>
+              <a href="/contributions">Contribute</a>
+              <a href="/users/profile">Profile</a>
+              <a href="/translate">Translate</a>
+              <a href="/learning" >Learn</a>
+              <a href="/quiz" >Quiz</a>
+            </div>
+          </div>
+          {{/if}}
+
+          <div class="logout">
+            {{#if isDisplayLogout}}
+              <a href = '/logout'>Logout</a>
+            {{/if}}
+          </div>
+          
         
     </header>
     <hr>
     <main id="mainBody">
         {{{body}}}
     </main>
-
-    {{#if isDisplayLogout}}
-    <a href = '/logout'>Logout</a>
-    {{/if}}
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
