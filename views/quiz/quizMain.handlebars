@@ -1,6 +1,18 @@
-<div>
-
+{{!-- <div>
     <div><button type="submit" class="quizType" value="beginner">Beginner</button></div>
     <div><button type="submit" class="quizType" value="intermediate">Intermediate</button></div>
     <div><button type="submit" class="quizType" value="advanced">Advanced</button></div>
+</div> --}}
+
+<div>Select language</div>
+<div id="radioDiv">
+    <input type="radio" name="language" value="ASL"> ASL<br>
+    <input type="radio" name="language" value="BSL"> BSL<br>
 </div>
+
+<div>Select level</div>
+<input type="radio" name="level" value="beginner"> Beginner<br>
+<input type="radio" name="level" value="intermediate"> Intermediate<br>
+<input type="radio" name="level" value="advanced"> Advanced<br>
+
+<button id="launchQuiz" type="submit">Launch</button>

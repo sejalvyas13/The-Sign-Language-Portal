@@ -8,6 +8,8 @@ const learningRoutes = require('./learning');
 const quizRoutes = require('./quiz');
 const signupRoutes = require('./signup');
 const loginRoutes = require('./login');
+const logoutRoutes = require('./logout');
+// const unauthRoutes = require('./unauthorized');
 
 const session = require('express-session');
 
@@ -30,6 +32,7 @@ const constructorMethod = (app) => {
   app.use('/translate', translateRoutes);
   app.use('/learning', learningRoutes);
   app.use('/quiz', quizRoutes);
+  app.use('/logout', logoutRoutes);
   app.use('/signup', signupRoutes);
   app.use('/login', loginRoutes);
 

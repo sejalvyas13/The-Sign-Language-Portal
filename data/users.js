@@ -35,7 +35,7 @@ module.exports = {
         if (insertInfo.insertedCount === 0) throw "Could not add user";
 
         //TODO: response can be removed
-        return await this.getUserById(insertInfo.insertedId.toString());
+        return insertInfo.insertedId.toString();
     },
 
     async getUserById(id) {
@@ -95,8 +95,8 @@ module.exports = {
         if (user === null) throw "No user with given username";
         // else if (hashedPwd && user.hashedPwd != hashedPwd) throw "Password doesn't match";
 
-        // user._id = user._id.toString();
-        // console.log(typeof user._id);
+        user._id = user._id.toString();
+        console.log("type of user_id:", typeof user._id);
         return user;
     },
 

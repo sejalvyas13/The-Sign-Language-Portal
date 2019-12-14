@@ -97,3 +97,11 @@ img{
   width: 100px;
 }
 
+#mainHeader{
+  color: #000000;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 10px;
+  font-weight: 200;
+  font-size: 40px;
+}
+

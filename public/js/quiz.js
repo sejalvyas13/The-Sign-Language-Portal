@@ -1,86 +1,101 @@
 (function ($) {
 
-    var quizTypeBtn = $(".quizType");
+    var launchQuizBtn = $("#launchQuiz");
 
-    var quiz_type = quizTypeBtn.val();
-    console.log("quiz_type", quiz_type);
-    quizTypeBtn.click(function (ev) {
+
+    launchQuizBtn.click(function (ev) {
+
+        var language = $('input[name=language]:checked').val();
+        var level = $('input[name=level]:checked').val();
+
+        console.log("language", language);
+        console.log("level", level);
+
         $.ajax({
             url: "/quiz/",
             type: 'post',
             dataType: 'json',
-            data: { 'quiz_type': quiz_type },
+            data: { 'language': language, "level": level },
             success: function (data) {
-                var totalQues = data.length;
+                var totalQues = data.allSigns.length;
                 console.log("signs array", data);
-                console.log("array length", data.length);
+                console.log("array length", data.allSigns.length);
 
-                $("#mainBody").html("<img id='sign_media'><input type='text' name='sign_text' id='sign_text'><button type='submit' id='btn_submit'>Next</button>");
+                var quizQnA;
+                $.get("../public/html/quizQnA.html", function (html_string) {
+                    console.log(html_string);
+                    quizQnA = html_string;
+                    $("#mainBody").html(quizQnA);
 
-                var signsArr = data;
-                var queCount = 0;
-                var correctAnsCount = 0;
+                    var signsArr = data.allSigns;
+                    var user_id = data.user_id;
+                    var queCount = 0;
+                    var correctAnsCount = 0;
 
-                var img = $("#sign_media");
-                var sign_text = $("#sign_text");
-                var submitAns = $("#btn_submit");
+                    var img = $("#sign_media");
+                    var sign_text = $("#sign_text");
+                    var submitAns = $("#btn_submit");
 
-                // load first question
-                console.log("img url", signsArr[queCount].media_path);
-                img.attr("src", signsArr[queCount].media_path);
-
-                submitAns.click(function (ev) {
-
-                    if (sign_text.val() == signsArr[queCount].text) {
-                        correctAnsCount += 1;
-                    }
-                    
-                    if (queCount == totalQues - 2) {
-                        submitAns.html("Finish");
-                    } else if (queCount == totalQues - 1) {
-                        var dataObj = {
-                            'user_id': "5df37115f775c81004ee2594",
-                            'quiz_type': quiz_type,
-                            'beginner': correctAnsCount
-                        };
-
-                        if (quiz_type == "intermediate") {
-                            dataObj = {
-                                'user_id': "5df37115f775c81004ee2594",
-                                'quiz_type': quiz_type,
-                                'intermediate': correctAnsCount
-                            };
-                        } else if (quiz_type == "advanced") {
-                            dataObj = {
-                                'user_id': "5df37115f775c81004ee2594",
-                                'quiz_type': quiz_type,
-                                'advanced': correctAnsCount
-                            }
-                        }
-                        //update quiz score
-                        $.ajax({
-                            url: "/progress/",
-                            type: 'post',
-                            dataType: 'json',
-                            data: dataObj,
-                            success: function (data) {
-                                console.log("back from progress", data);
-                                window.location.href = "/quiz/";
-                            },
-                            error: function (data) {
-                                console.log("back from progress", data.status);
-                                console.log("back from progress", data.responseText);
-                            }
-                        });
-                    }
-                    
-                    queCount += 1;
-
-                    img.attr("src", signsArr[queCount].media_path);
-                    console.log("Correct answers:", correctAnsCount);
-                    console.log("question number:", queCount);
+                    // load first question
                     console.log("img url", signsArr[queCount].media_path);
-                });
+                    img.attr("src", signsArr[queCount].media_path);
+
+                    submitAns.click(function (ev) {
+
+                        if (sign_text.val().toLowerCase() == signsArr[queCount].text.toLowerCase()) {
+                            correctAnsCount += 1;
+                        }
+
+                        if (queCount == totalQues - 2) {
+                            submitAns.html("Finish");
+                        } else if (queCount == totalQues - 1) {
+                            var dataObj = {
+                                'user_id': user_id,
+                                'quiz_type': level,
+                                'beginner': correctAnsCount
+                            };
+
+                            if (level == "intermediate") {
+                                dataObj = {
+                                    'user_id': user_id,
+                                    'quiz_type': level,
+                                    'intermediate': correctAnsCount
+                                };
+                            } else if (level == "advanced") {
+                                dataObj = {
+                                    'user_id': user_id,
+                                    'quiz_type': level,
+                                    'advanced': correctAnsCount
+                                }
+                            }
+                            //update quiz score
+                            $.ajax({
+                                url: "/progress/",
+                                type: 'post',
+                                dataType: 'json',
+                                data: dataObj,
+                                success: function (data) {
+                                    console.log("back from progress", data);
+                                    window.location.href = "/quiz/";
+                                },
+                                error: function (data) {
+                                    console.log("back from progress", data.status);
+                                    console.log("back from progress", data.responseText);
+                                }
+                            });
+                        }
+
+                        queCount += 1;
+
+                        img.attr("src", signsArr[queCount].media_path);
+                        console.log("Correct answers:", correctAnsCount);
+                        console.log("question number:", queCount);
+                        console.log("img url", signsArr[queCount].media_path);
+                    });
+
+                }, 'html');
+
+
 
             },
             error: function (data) {
@@ -92,8 +107,5 @@
             }
         });
     });
-
-
-
 
 })(window.jQuery);

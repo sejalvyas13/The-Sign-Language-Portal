@@ -14,18 +14,20 @@ module.exports = {
         return sign;
     },
 
-    async getSignByArrayOfIds(ids) {
+    async getSignByArrayOfIds(ids, language, level) {
+        //TODO error handling
         if (!ids) throw "You must provide ids to search for sign";
         //if (typeof(id) != 'string') throw "id should be a string";
-        if(ids.length == 0) throw "Provide at least one Id"
+        if(ids.length == 0) throw "Provide at least one Id";
 
         const signCollection = await signs();
-        console.log("we're in getSignByArrayOfId, printing")
-        console.log(ids)
-        const sign = await signCollection.findOne({ _id: {$in : ids} });
-        if (sign === null) throw "No sign with that id";
+        console.log("we're in getSignByArrayOfId, printing");
+        console.log(ids);
+        const learned_signs = await signCollection.find({ _id: {$in : ids}, 
+            language_type : language, level:level }).toArray();
+        if (learned_signs === null) throw "No learned signs with given ids";
 
-        return sign;
+        return learned_signs;
     },
 
     async getSignByText(text) {
@@ -39,6 +41,7 @@ module.exports = {
         return sign;
     },
     async getAllSigns(language, level) {
+        //TODO error handling
         const signCollection = await signs();
         //console.log("In getAllBeginnerSigns");
         const allSigns = await signCollection.find({language_type : language, level:level}).toArray();

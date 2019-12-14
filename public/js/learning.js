@@ -54,7 +54,9 @@
                 });
 
                 learnNextBtn.click(function(event){
-                    counter++; 
+                    counter += 1; 
+                    console.log("learning counter:", counter);
+                    console.log("media path", signsData[counter].media_path);
                     //TODO : Update progress here
                     img.attr("src", signsData[counter].media_path);
                     language_type.text(signsData[counter].language_type);
@@ -65,7 +67,7 @@
                         level : signsData[counter].level,
                         //user_id: "5df3f5d757dc2a83982dc82e",
                         sign_id: signsData[counter]._id,
-                        learningScore:counter+1 
+                        learningScore:counter
                     };
 
                     $.ajax({
