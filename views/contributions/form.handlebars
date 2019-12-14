@@ -17,7 +17,11 @@
         <input type="text" name="sl_text" placeholder="Sign Language text" class="full-width-input" />
     </label>
     {{#if hasError}}
-    <p class="error">Response status code(400):{{error}}</p>
+    <p class="error">{{error}}</p>
+    {{/if}}
+
+    {{#if isReqSubmitted}}
+    <p>Your contribution request has been submitted successfully!</p>
     {{/if}}
 
     <button type="submit">Submit</button>

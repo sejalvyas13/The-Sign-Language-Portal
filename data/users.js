@@ -35,7 +35,7 @@ module.exports = {
         if (insertInfo.insertedCount === 0) throw "Could not add user";
 
         //TODO: response can be removed
-        return await this.getUserById(insertInfo.insertedId.toString());
+        return insertInfo.insertedId.toString();
     },
 
     async getUserById(id) {

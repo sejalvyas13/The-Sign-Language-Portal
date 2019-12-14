@@ -9,7 +9,7 @@ async function runSetup() {
     try {
         // We can recover from this; if it can't drop the collection, it's because
         await db.collection('signs').drop();
-        //await db.collection('users').drop();
+        // await db.collection('users').drop();
         await db.collection('progress').drop();
     } catch (e) {
         

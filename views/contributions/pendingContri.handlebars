@@ -1,28 +1,25 @@
 {{#each contributions}}
 
 <form id="req{{@index}}" action="/contributions/pendingContributions" method="POST" enctype="multipart/form-data" class="new-search-form">
-    <img src="{{this.media_path}}" height="50px" width="50px" />
+    <img src="{{this.media_path}}"/>
 
     <label>
         Text:
         <span>{{this.text}}</span>
     </label>
 
-
     <select id="sl_level{{@index}}">
-        <option value="default">Please choose sign language level</option>
+        {{!-- <option value="default">Please choose sign language level</option> --}}
         <option value="beginner" >Beginner</option>
         <option value="intermediate">Intermediate</option>
         <option value="advanced">Advanced</option>
     </select>
 
-
     <select id="sl_status{{@index}}">
-        <option value="default">Please select one</option>
+        {{!-- <option value="default">Please select one</option> --}}
         <option value="approve">Approve</option>
         <option value="reject">Reject</option>
     </select>
-
 
     <input type="hidden" id="contribution_id{{@index}}" value="{{this._id}}" />
 

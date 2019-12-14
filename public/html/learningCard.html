@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/public/css/learning.css">
+
+<div class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-back">
+            <img id="imgId" src="{{sign.media_path}}" alt="{{sign.text}}">
+        </div>
+        <div class="flip-card-front">
+            <h1 id="language_type">{{sign.language_type}}</h1>
+            <h2 id="signText">{{sign.text}}</h2>
+            <p>Level : </p> <span id="level">{{sign.level}}</span>
+        </div>
+    </div>
+</div>
+<button id="learnSign" type='submit' id="submit">Next</button>
+
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="/public/js/learning.js"></script>
