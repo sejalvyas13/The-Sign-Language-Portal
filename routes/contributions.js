@@ -4,7 +4,7 @@ const fs = require("fs");
 const router = express.Router();
 const data = require('../data');
 const contributionData = data.contributions;
-var userInfoJson = require('../data/userInfo.json');
+const usersData = data.users;
 
 // Json schema validator
 // const djv = require('djv');
@@ -70,12 +70,14 @@ router.post('/', upload.single('sl_media_path'), async (req, res) => {
                 error: "You must select file to be uploaded"
             });
         } else {
-            console.log('logged in user id:', userInfoJson._id);
+            //TODO add try and catch 
+            var userdetails = await usersData.getUserByUsername(req.session.AuthCookie);
+            console.log('logged in user id:', userdetails._id);
             const tempPath = req.file.path;
             const targetPath = path.join("./" + req.file.destination + req.file.originalname);
             console.log("media path:", targetPath);
             // if (path.extname(req.file.originalname).toLowerCase() === ".png") {
-            var message = await contributionData.contributeSign(userInfoJson._id, req.body.sl_type, targetPath,
+            var message = await contributionData.contributeSign(userdetails._id, req.body.sl_type, targetPath,
                 req.body.sl_text);
             /** TODO : Remove this. This is temp hack to directly add signs to DB */
             // await contributionData.approveOrRejectContribution(userInfoJson._id, "beginner", true);

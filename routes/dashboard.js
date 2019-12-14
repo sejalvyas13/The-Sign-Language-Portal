@@ -9,8 +9,8 @@ router.get('/', async (req, res) => {
   if (req.session.AuthCookie === undefined) {
     res.render("login/notAuthorized", { isDisplayLogout: false });
   } else {
-    userdetails = await usersData.getUserByUsername(req.session.AuthCookie);
-    console.log("userinfojson", userdetails);
+    var userdetails = await usersData.getUserByUsername(req.session.AuthCookie);
+    console.log("userdetails", userdetails);
     res.render("dashboard/screen", { userdetails: userdetails, title: "Dashboard", isDisplayLogout: true });
   }
 });

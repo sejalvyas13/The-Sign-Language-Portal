@@ -11,8 +11,6 @@ const loginRoutes = require('./login');
 const logoutRoutes = require('./logout');
 // const unauthRoutes = require('./unauthorized');
 
-var userInfoJson = require('../data/userInfo.json');
-
 const session = require('express-session');
 
 

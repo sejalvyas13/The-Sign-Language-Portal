@@ -57,7 +57,7 @@ router.post("/", async (req, res) => {
     } else {
       res.render("login/loginMain", {
         hasError: true, title: "Login", isDisplayLogout: false,
-        error: "Response status code(401): Please provide valid username and/or password"
+        error: "Either username and/or password doesn't match"
       });
     }
   } else {

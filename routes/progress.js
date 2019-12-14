@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const progressData = data.progress;
-// var userInfoJson = require('../data/userInfo.json');
+const usersData = data.users;
 
 router.post('/', async (req, res) => {
     if (req.session.AuthCookie === undefined) {
@@ -34,7 +34,8 @@ router.post('/learningProgress', async (req, res) => {
         console.log("body", req.body);
         // var quiz_type = req.body.quiz_type;
         // var quiz_type = 'beginner';
-        const progress = await progressData.getProgressByUserId(userInfoJson._id);
+        var userdetails = await usersData.getUserByUsername(req.session.AuthCookie);
+        const progress = await progressData.getProgressByUserId(userdetails._id.toString());
         console.log("Progress below")
         console.log(progress);
         var scores = {
@@ -44,7 +45,7 @@ router.post('/learningProgress', async (req, res) => {
 
         scores[req.body.level] = req.body.learningScore;
         console.log("scores inside route", scores);
-        const msg = await progressData.updateLearningScoresProgress(userInfoJson._id, scores, req.body.sign_id);
+        const msg = await progressData.updateLearningScoresProgress(userdetails._id, scores, req.body.sign_id);
         try {
             res.send(JSON.stringify({ message: msg }));
         } catch (e) {
