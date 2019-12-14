@@ -48,7 +48,8 @@
 
                         if (queCount == totalQues - 2) {
                             submitAns.html("Finish");
-                        } else if (queCount == totalQues - 1) {
+                        }
+                        if (queCount == totalQues - 1) {
                             var dataObj = {
                                 'user_id': user_id,
                                 'quiz_type': level,
@@ -83,14 +84,15 @@
                                     console.log("back from progress", data.responseText);
                                 }
                             });
+                        } else {
+
+                            queCount += 1;
+
+                            img.attr("src", signsArr[queCount].media_path);
+                            console.log("Correct answers:", correctAnsCount);
+                            console.log("question number:", queCount);
+                            console.log("img url", signsArr[queCount].media_path);
                         }
-
-                        queCount += 1;
-
-                        img.attr("src", signsArr[queCount].media_path);
-                        console.log("Correct answers:", correctAnsCount);
-                        console.log("question number:", queCount);
-                        console.log("img url", signsArr[queCount].media_path);
                     });
 
                 }, 'html');

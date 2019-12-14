@@ -97,12 +97,13 @@ module.exports = {
 
     async updateLearningScoresProgress(user_id, scores, sign_id) {
         if (!user_id) throw "You must provide user id to update progress record";
-        if (!sign_id) throw "You must provide user id to update progress record";
+        if (!sign_id) throw "You must provide sign id to update progress record";
 
         // const { scores, learning_progress, learned_sl, badges } = updateProperties;
 
         const progressCollection = await progress();
         console.log("updated scores inside", scores);
+        console.log("type of sign id", typeof(sign_id));
 
         // let updatedProgress;
 

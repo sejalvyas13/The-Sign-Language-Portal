@@ -13,8 +13,8 @@ router.get('/profile', async (req, res) => {
     } else {
         try {
             const user = await usersData.getUserByUsername(req.session.AuthCookie);
-            const contributions = await contributionsData.getContributionsById(user._id);
-            const progress = await progressData.getProgressById(user._id);
+            const contributions = await contributionsData.getContributionsByContributorId(user._id.toString());
+            const progress = await progressData.getProgressById(user._id.toString());
 
             const allData = {
                 userInfo: user,
