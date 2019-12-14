@@ -3,7 +3,7 @@
     var msgContainer = $("#unError");
     var signupBtn = $("#signupBtn");
 
-    msgContainer.hide();
+    msgContainer.attr('hidden', true);
     signupBtn.attr('disabled', true);
     username.focusout(function () {
 
@@ -17,11 +17,11 @@
 
                 if (data.message == "") {
                     signupBtn.attr('disabled', false);
-                    msgContainer.hide();
+                    msgContainer.attr('hidden', true);
                 } else {
                     signupBtn.attr('disabled', true);
                     msgContainer.text(data.message);
-                    msgContainer.show();
+                    msgContainer.attr('hidden', false);
                 }
             },
             error: function (data) {
