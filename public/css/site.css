@@ -97,6 +97,10 @@ img{
   width: 100px;
 }
 
+span#unError{
+  font-size: small;
+  color: red;
+}
 #mainHeader{
   color: #000000;
   font-family: 'Courier New', Courier, monospace;
