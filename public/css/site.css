@@ -12,7 +12,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
 }
 
-main {
+#mainBody {
   max-width: 75%;
   margin: auto;
 }
@@ -23,7 +23,8 @@ h3,
 h4,
 h5,
 h6 {
-  color: #ffffff;
+  background-color: #ffffff;
+  color:#767676;
   margin-bottom: 5px;
 }
 
@@ -109,6 +110,10 @@ span#unError{
   font-size: 40px;
 }
 
+#signText{
+  margin: 20px;
+}
+
 .output {
   font: 1rem 'Fira Sans', sans-serif;
 }
@@ -126,7 +131,10 @@ dd {
 dd {
   margin-bottom: 1em;
 }
+<<<<<<< HEAD
 
 div#quizFinish{
   padding-top: 2em;
 }
+=======
+>>>>>>> 6852ac514df0381e3f508a46310dbaf935e949bd

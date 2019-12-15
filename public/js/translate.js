@@ -18,7 +18,8 @@
             recognition.stop()
         }
       }
-      //document.getElementById('spoken').innerHTML = finalTranscript + '<i style="color:#ddd;">' + interimTranscript + '</>';
+      
+      $('spoken').html(interimTranscript);
       var requestConfig = {
         method: "POST",
         url: "/signs/fromText",
@@ -94,7 +95,8 @@
                   document.getElementById('signObj').appendChild(x);
 
               }
-              
+              document.getElementById('listening').innerHTML = "Stopped listening!";
+              recognition.stop();
           },
           error: function (data) {
               $('#signObj').empty();
@@ -104,6 +106,7 @@
                 document.getElementById("aslImg").remove();
               }
               if(document.getElementById('errorMessage')){
+               var x = document.getElementById('errorMessage');
                 x.innerHTML = "Sorry we couldn't find that sign! We're constantly trying to improve!";
                 document.getElementById('signObj').appendChild(x);
               }

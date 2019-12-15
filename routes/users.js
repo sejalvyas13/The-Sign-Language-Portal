@@ -37,6 +37,7 @@ router.get('/profile', async (req, res) => {
                 contributionsInfo: contributions.length,
                 progressInfo: progress
             }
+            console.log(contributions)
             
             res.render("users/profile", { userData: allData, isDisplayLogout: true });
         } catch (e) {

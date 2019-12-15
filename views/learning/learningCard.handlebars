@@ -1,32 +1,6 @@
 <link rel="stylesheet" href="/public/css/learning.css">
 
 
-{{!-- {{#each signs}}
-
-<section class="main1" id="section{{@index}}">
-    <div class="flip-card">
-      <div class="flip-card-inner">
-        <div class="flip-card-back">
-          <img src="{{media_path}}" alt="Avatar" style="width:300px;height:300px;">
-        </div>
-        <div class="flip-card-front">
-          <h1></h1> 
-          <p>{{text}}</p> 
-          <p></p>
-        </div>
-      </div>
-    </div>
-
-    {{#notEqual 1 @index }}
-        <a href='#section{{inc @index}}'>Next</a>
-    {{/notEqual}}
-
-    {{#equal 1 @index }}
-        <button type='submit' id="submit">Submit</button>
-    {{/equal}}
-</section>
-
-{{/each}} --}}
 
 
 
@@ -36,13 +10,13 @@
       <img id="imgId" src="{{sign.media_path}}" alt="{{sign.text}}">
     </div>
     <div class="flip-card-front">
-      <h1 id="language_type">{{sign.language_type}}</h1> 
-        <h2 id="signText">{{sign.text}}</h2> 
-      <p>Level : </p> <span id="level">{{sign.level}}</span>
+      <span id="language_type">{{sign.language_type}}</span> 
+        <h1 id="signText">{{sign.text}}</h1> 
+      <span>Level : </span> <span id="level">{{sign.level}}</span>
     </div>
   </div>
 </div>
-<button id="learnSign" type='submit' id="submit">Next</button>
+<button id="learnSign" type='submit'>Next</button>
 
 
 
