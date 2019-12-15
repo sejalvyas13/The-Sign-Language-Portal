@@ -47,7 +47,7 @@ configRoutes(app);
 async function main(){
   try{
     // TODO: uncomment to run seed
-    await seed.runSetup();
+    // await seed.runSetup();
   }
   catch(e){
     console.log({"message" : e});
