@@ -28,7 +28,7 @@
                 var counter = 1;
                 //$("#mainBody").html(JSON.stringify(responseMessage));
                 $("#mainBody").html(
-                    '<link rel="stylesheet" href="/public/css/learning.css"><div class="flip-card"><div class="flip-card-inner"><div class="flip-card-back"><img id="imgId" src="" alt="" style="width:300px;height:300px;"></div><div class="flip-card-front"><h1 id="language_type"></h1> <h2 id="signText"></h2> <p>Level : </p> <span id="level"></span></div></div></div><button id="learnNext" type="submit">Next</button><button id="learningDone" type="button">Done for today!</button>    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="crossorigin="anonymous"></script><script src="/public/js/learning.js"></script>'
+                    '<link rel="stylesheet" href="/public/css/learning.css"><div class="flip-card"><div class="flip-card-inner"><div class="flip-card-back"><img id="imgId" src="" alt="" style="width:300px;height:300px;"></div><div class="flip-card-front"><span id="language_type"></span> <h1 id="signText"></h1> <span>Level : </span> <span id="level"></span></div></div></div><button id="learnNext" type="submit">Next</button><button id="learningDone" type="button">Done for today!</button>    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="crossorigin="anonymous"></script><script src="/public/js/learning.js"></script>'
                 );
 
                 var learningDone = $("#learningDone");

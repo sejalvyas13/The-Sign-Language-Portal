@@ -10,16 +10,17 @@ module.exports = {
         if (!id) throw "You must provide an id";
 
         const contributionCollection = await contributions();
-        const contribution = await contributionCollection.findOne({ _id: ObjectId(id) });
-        if (contribution === null) throw "No contribution with given id";
+        const contributionsArray = await contributionCollection.find({ contributor_id: ObjectId(id) }).toArray();
+        if (contributionsArray == []) throw "No contribution with given id";
 
-        var signsArray = []
-        for (const signId of contribution.contributions) {
-            const sign = await signData.getSignById(signId);
-            signsArray.push(sign);
-        }
-
-        return signsArray;
+        console.log("contri",contributionsArray);
+        // var signsArray = []
+        // for (const contri of contributionsArray) {
+        //     const sign = await signData.getSignById(signId);
+        //     signsArray.push(sign);
+        // }
+        // console.log(signsArray);
+        return contributionsArray;
     },
     async getContributionsByContributionId(id) {
         if (!id) throw "You must provide an id";
