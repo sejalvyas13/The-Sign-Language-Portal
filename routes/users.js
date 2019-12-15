@@ -37,11 +37,8 @@ router.get('/profile', async (req, res) => {
                 contributionsInfo: contributions.length,
                 progressInfo: progress
             }
-<<<<<<< HEAD
             console.log(contributions)
-=======
             
->>>>>>> 59c1f9bcf7e1902754ea13fc3545a6b5dea79236
             res.render("users/profile", { userData: allData, isDisplayLogout: true });
         } catch (e) {
             res.status(500).json({ error: e });
