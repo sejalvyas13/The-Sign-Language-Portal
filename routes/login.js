@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const usersData = data.users;
+const xss = require('xss');
 
 const bcrypt = require("bcrypt");
 
@@ -28,7 +29,7 @@ router.post("/", async (req, res) => {
     const userInfo = req.body;
     var userdetails = undefined;
     try {
-      userdetails = await usersData.getUserByUsername(userInfo.username);
+      userdetails = await usersData.getUserByUsername(xss(userInfo.username));
     } catch (e) {
       res.render("login/loginMain", { hasError: true, title: "Login", error: e, isDisplayLogout: false });
     }

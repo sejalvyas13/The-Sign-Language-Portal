@@ -12,7 +12,7 @@ async function runSetup() {
         await db.collection('users').drop();
         await db.collection('progress').drop();
     } catch (e) {
-        
+
     }
 
     const signsCollection = await db.collection('signs');
@@ -20,6 +20,7 @@ async function runSetup() {
     const progressCollection = await db.collection('progress');
 
 
+    // Users ******************************
     let user1 = {
         firstname: "Sejal",
         lastname: "Vyas",
@@ -64,27 +65,125 @@ async function runSetup() {
     await usersCollection.insertMany(usersList);
     const user1Obj = await users.get(user1.username, user1.hashedPwd);
 
-    const folder = './public/media/';
-    var imgList = []
+    // Signs **************************************
+    // const folder = './public/media/';
+    const asl_b = './public/media/ASL/beginner/';
+    const asl_i = './public/media/ASL/intermediate/';
+    const asl_a = './public/media/ASL/advanced/';
 
-    fs.readdirSync(folder).forEach(file => {
-            //console.log(file);
-            //TODO : dynamic path extraction
-            //TODO : 
-            imgList.push({
-                language_type: 'ASL',
-                level: 'beginner',
-                media_path: "http://localhost:3000/public/media/" + file,
-                text: (file.substring(0,file.length-4)).toLowerCase(),
-                contributor_id: user1Obj._id
-            });
+    const bsl_b = './public/media/BSL/beginner/';
+    const bsl_i = './public/media/BSL/intermediate/';
+    const bsl_a = './public/media/BSL/advanced/';
+
+    var asl_bImgList = [];
+
+    fs.readdirSync(asl_b).forEach(file => {
+        //console.log(file);
+        //TODO : dynamic path extraction
+        //TODO : //http://localhost:3000/public/media/ASL/beginner/" + file,
+        asl_bImgList.push({
+            language_type: 'ASL',
+            level: 'beginner',
+            media_path: "../../public/media/ASL/beginner/" + file,
+            text: (file.substring(0, file.length - 4)).toLowerCase(),
+            contributor_id: user1Obj._id
+        });
+
+    });
+
+    await signsCollection.insertMany(asl_bImgList);
+
+    var asl_iImgList = [];
+
+    fs.readdirSync(asl_i).forEach(file => {
+        //console.log(file);
+        //TODO : dynamic path extraction
+        //TODO : //http://localhost:3000/public/media/ASL/beginner/" + file,
+        asl_iImgList.push({
+            language_type: 'ASL',
+            level: 'intermediate',
+            media_path: "../../public/media/ASL/intermediate/" + file,
+            text: (file.substring(0, file.length - 4)).toLowerCase(),
+            contributor_id: user1Obj._id
+        });
+
+    });
+
+    await signsCollection.insertMany(asl_iImgList);    
+
+    var asl_aImgList = [];
+
+    fs.readdirSync(asl_a).forEach(file => {
+        //console.log(file);
+        //TODO : dynamic path extraction
+        //TODO : //http://localhost:3000/public/media/ASL/beginner/" + file,
+        asl_aImgList.push({
+            language_type: 'ASL',
+            level: 'advanced',
+            media_path: "../../public/media/ASL/advanced/" + file,
+            text: (file.substring(0, file.length - 4)).toLowerCase(),
+            contributor_id: user1Obj._id
+        });
+
+    });
+
+    await signsCollection.insertMany(asl_aImgList);
+
+    var bsl_bImgList = [];
+    fs.readdirSync(bsl_b).forEach(file => {
+        //console.log(file);
+        //TODO : dynamic path extraction
+        //TODO : //http://localhost:3000/public/media/ASL/beginner/" + file,
+        bsl_bImgList.push({
+            language_type: 'BSL',
+            level: 'beginner',
+            media_path: "../../public/media/BSL/beginner/" + file,
+            text: (file.substring(0, file.length - 4)).toLowerCase(),
+            contributor_id: user1Obj._id
+        });
+
+    });
+
+    await signsCollection.insertMany(bsl_bImgList);
+
+    var bsl_iImgList = [];
+
+    fs.readdirSync(bsl_i).forEach(file => {
+        //console.log(file);
+        //TODO : dynamic path extraction
+        //TODO : //http://localhost:3000/public/media/ASL/beginner/" + file,
+        bsl_iImgList.push({
+            language_type: 'BSL',
+            level: 'intermediate',
+            media_path: "../../public/media/BSL/intermediate/" + file,
+            text: (file.substring(0, file.length - 4)).toLowerCase(),
+            contributor_id: user1Obj._id
+        });
+
+    });
+
+    await signsCollection.insertMany(bsl_iImgList);
+
+    var bsl_aImgList = [];
+
+    fs.readdirSync(bsl_a).forEach(file => {
+        //console.log(file);
+        //TODO : dynamic path extraction
+        //TODO : //http://localhost:3000/public/media/ASL/beginner/" + file,
+        bsl_aImgList.push({
+            language_type: 'BSL',
+            level: 'advanced',
+            media_path: "../../public/media/BSL/advanced/" + file,
+            text: (file.substring(0, file.length - 4)).toLowerCase(),
+            contributor_id: user1Obj._id
+        });
 
     });
     //console.log("imglist" + imgList)
 
-    await signsCollection.insertMany(imgList);
+    await signsCollection.insertMany(bsl_aImgList);
 
-    // Progress seed
+    // Progress seed *******************************
     const user2Obj = await users.get(user2.username, user2.hashedPwd);
     const user3Obj = await users.get(user3.username, user3.hashedPwd);
     const user4Obj = await users.get(user4.username, user4.hashedPwd);

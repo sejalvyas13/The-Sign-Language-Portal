@@ -5,6 +5,7 @@ const router = express.Router();
 const data = require('../data');
 const contributionData = data.contributions;
 const usersData = data.users;
+const xss = require('xss');
 
 // Json schema validator
 // const djv = require('djv');
@@ -78,7 +79,7 @@ router.post('/', upload.single('sl_media_path'), async (req, res) => {
             console.log("media path:", targetPath);
             // if (path.extname(req.file.originalname).toLowerCase() === ".png") {
             var message = await contributionData.contributeSign(userdetails._id, req.body.sl_type, targetPath,
-                req.body.sl_text);
+                xss(req.body.sl_text));
             /** TODO : Remove this. This is temp hack to directly add signs to DB */
             // await contributionData.approveOrRejectContribution(userInfoJson._id, "beginner", true);
 

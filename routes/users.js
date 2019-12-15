@@ -4,7 +4,6 @@ const data = require('../data');
 const usersData = data.users;
 const contributionsData = data.contributions;
 const progressData = data.progress;
-// var userInfoJson = require('../data/userInfo.json');
 
 // Display user profile
 router.get('/profile', async (req, res) => {
@@ -12,22 +11,38 @@ router.get('/profile', async (req, res) => {
         res.render("login/notAuthorized", { isDisplayLogout: false });
     } else {
         try {
+            //Get user
             const user = await usersData.getUserByUsername(req.session.AuthCookie);
-            const contributions = await contributionsData.getContributionsByContributorId(user._id.toString());
-            const progress = await progressData.getProgressById(user._id.toString());
+            console.log(user);
 
-            const allData = {
-                userInfo: user,
-                contributionsInfo: contributions,
-                progressInfo: progress
+            //Get contributions
+            var contributions;
+            try {
+                contributions = await contributionsData.getContributionsByContributorId(user._id.toString());
+            } catch (error) {
+                console.log(error);
             }
 
+            //get progress
+            var progress;
+            try {
+                progress = await progressData.getProgressByUserId(user._id.toString());
+            } catch (error) {
+                console.log(error);
+            }
+            
+            console.log("# of contris", contributions.length);
+            const allData = {
+                userInfo: user,
+                contributionsInfo: contributions.length,
+                progressInfo: progress
+            }
+            
             res.render("users/profile", { userData: allData, isDisplayLogout: true });
         } catch (e) {
             res.status(500).json({ error: e });
         }
     }
-
 });
 
 module.exports = router;

@@ -62,8 +62,9 @@
           data : {text : interimTranscript.trim()},
           success: function (responseMessage) {
               console.log("In success", responseMessage);
-              var newElement = $(responseMessage);
-              $('spoken').html(responseMessage.text);
+              // var newElement = $(responseMessage);
+              // document.getElementById('spoken').innerHTML = responseMessage.text;
+              $("#spoken").text(responseMessage.text);
               /**TODO : Convert this piece into jquery */
               if(document.getElementById('aslImg')){
                   if(document.getElementById('errorMessage')){
