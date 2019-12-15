@@ -39,7 +39,7 @@
                     // load first question
                     console.log("img url", signsArr[queCount].media_path);
                     img.attr("src", signsArr[queCount].media_path);
-
+                    $("#currentScore").text("Score: "+correctAnsCount+"/"+totalQues);
                     submitAns.click(function (ev) {
 
                         if (sign_text.val().toLowerCase() == signsArr[queCount].text.toLowerCase()) {
@@ -53,20 +53,23 @@
                             var dataObj = {
                                 'user_id': user_id,
                                 'quiz_type': level,
-                                'beginner': correctAnsCount
+                                'beginner': correctAnsCount,
+                                'totalQue': totalQues
                             };
 
                             if (level == "intermediate") {
                                 dataObj = {
                                     'user_id': user_id,
                                     'quiz_type': level,
-                                    'intermediate': correctAnsCount
+                                    'intermediate': correctAnsCount,
+                                    'totalQue': totalQues
                                 };
                             } else if (level == "advanced") {
                                 dataObj = {
                                     'user_id': user_id,
                                     'quiz_type': level,
-                                    'advanced': correctAnsCount
+                                    'advanced': correctAnsCount,
+                                    'totalQue': totalQues
                                 }
                             }
                             //update quiz score
@@ -77,9 +80,16 @@
                                 data: dataObj,
                                 success: function (data) {
                                     console.log("back from progress", data);
-                                    window.location.href = "/quiz/";
+                                    // window.location.href = "/quiz/";
+                                    // $("#mainBody").html('');
+                                    $("#quizFinish").attr('hidden', false);
+                                    $("#quizScore").text("You have successfully completed this quiz. You score is "+correctAnsCount+"/"+totalQues);
+                                    $("#btnRedirect").click(function (){
+                                        window.location.href = "/quiz/";
+                                    });
                                 },
                                 error: function (data) {
+                                    // $("#mainBody").html(data);
                                     console.log("back from progress", data.status);
                                     console.log("back from progress", data.responseText);
                                 }
@@ -89,6 +99,7 @@
                             queCount += 1;
 
                             img.attr("src", signsArr[queCount].media_path);
+                            $("#currentScore").text("Score: "+correctAnsCount+"/"+totalQues);
                             console.log("Correct answers:", correctAnsCount);
                             console.log("question number:", queCount);
                             console.log("img url", signsArr[queCount].media_path);

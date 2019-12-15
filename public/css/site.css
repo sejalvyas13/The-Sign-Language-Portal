@@ -126,3 +126,7 @@ dd {
 dd {
   margin-bottom: 1em;
 }
+
+div#quizFinish{
+  padding-top: 2em;
+}

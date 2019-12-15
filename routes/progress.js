@@ -21,6 +21,7 @@ router.post('/', async (req, res) => {
         const msg = await progressData.updateQuizScoresProgress(req.body.user_id, scores);
         try {
             res.send(JSON.stringify({ message: msg }));
+            // res.render('quiz/quizCompleted', {'trueCount': req.body[req.body.quiz_type], 'totalQue':req.body.totalQue});
         } catch (e) {
             res.status(500).json({ error: e });
         }
