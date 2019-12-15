@@ -58,17 +58,20 @@ router.post('/', upload.single('sl_media_path'), async (req, res) => {
         if (req.body.sl_type == "default") {
             res.render("contributions/form", {
                 isReqSubmitted: false, hasError: true,
-                error: "Please choose sign language type"
+                error: "Please choose sign language type",
+                isDisplayLogout: true
             });
         } else if (req.body.sl_text == "") {
             res.render("contributions/form", {
                 isReqSubmitted: false, hasError: true,
-                error: "You must proivde corresponding text for given sign symbol"
+                error: "You must proivde corresponding text for given sign symbol",
+                isDisplayLogout: true
             });
         } else if (req.file.originalname == "") {
             res.render("contributions/form", {
                 isReqSubmitted: false, hasError: true,
-                error: "You must select file to be uploaded"
+                error: "You must select file to be uploaded",
+                isDisplayLogout: true
             });
         } else {
             //TODO add try and catch 
@@ -86,9 +89,9 @@ router.post('/', upload.single('sl_media_path'), async (req, res) => {
             fs.rename(tempPath, targetPath, err => {
                 // if (err) return handleError(err, res);
                 try {
-                    res.render("contributions/form", { isReqSubmitted: true, hasError: false });
+                    res.render("contributions/form", { isReqSubmitted: true, hasError: false, isDisplayLogout: true });
                 } catch (e) {
-                    res.render("contributions/form", { isReqSubmitted: false, hasError: true, status_code: 400, error: e });
+                    res.render("contributions/form", { isReqSubmitted: false, hasError: true, isDisplayLogout: true, status_code: 400, error: e });
                     // res.status(400).json({ error: e });
                 }
             });

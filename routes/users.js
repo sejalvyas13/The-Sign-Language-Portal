@@ -37,6 +37,7 @@ router.get('/profile', async (req, res) => {
                 contributionsInfo: contributions.length,
                 progressInfo: progress
             }
+<<<<<<< HEAD
             console.log("progress data")
             console.log(allData.progressInfo)
             var userdetails = await usersData.getUserByUsername(req.session.AuthCookie);
@@ -58,6 +59,11 @@ router.get('/profile', async (req, res) => {
             console.log(badge)
             await progressData.updateBadgesProgress(userdetails._id, badge);
             res.render("users/profile", { userData: allData, isDisplayLogout: true, badges  : badge});
+=======
+            console.log(contributions)
+            
+            res.render("users/profile", { userData: allData, isDisplayLogout: true });
+>>>>>>> 6852ac514df0381e3f508a46310dbaf935e949bd
         } catch (e) {
             res.status(500).json({ error: e });
         }

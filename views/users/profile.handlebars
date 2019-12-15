@@ -1,18 +1,18 @@
 <div>
-  First Name:
+  <span>
+    First Name:
   {{userData.userInfo.firstname}}
-  </br>
-  Last Name: {{userData.userInfo.lastname}}
-  </br>
-  User Type: {{userData.userInfo.userType}}
-  </br>
-  Profile Views: {{userData.userInfo.profileViews}}
-  </br>
+  </span>
   
-  User Progress : {{userData.progressInfo}}
-<br>
-  Contribution Badge : {{badges.contribution_badge}}
-<br>
-  Test Badge : {{badges.test_badge}}
-<br>
+  <br/>
+  <span>Last Name: {{userData.userInfo.lastname}}</span> 
+  <br/>
+  <span>User Type: {{userData.userInfo.userType}}</span> 
+  <br/>
+  <span>Number of pending Contributions: {{userData.contributionsInfo}}</span>
+  <br/>
+  <span>Contribution Badge : {{badges.contribution_badge}}</span>
+  <br/>
+  <span>Test Badge : {{badges.test_badge}}</span>
+    
 </div>
