@@ -43,8 +43,8 @@ module.exports = {
             },
             learned_sl: [],
             badges: {
-                test_badge: undefined,
-                contribution_badge: undefined
+                test_badge: "bronze",
+                contribution_badge: "bronze"
             }
         };
 
@@ -160,5 +160,30 @@ module.exports = {
         }
 
         return "Progress record updated!";
+    },
+
+    async updateBadgesProgress(user_id, badges) {
+        if (!user_id) throw "You must provide user id to update progress record";
+
+        // const { scores, learning_progress, learned_sl, badges } = updateProperties;
+
+        const progressCollection = await progress();
+        console.log("updated badges inside", badges);
+        // let updatedProgress;
+
+        if (badges) {            
+
+           
+            const updatedInfo = await progressCollection.update(  
+                { user_id: ObjectId(user_id) }, 
+                { $set: { badges: badges  } } 
+            );
+
+            if (updatedInfo.modifiedCount === 0) {
+                throw "could not update progress record successfully";
+            }
+        } else throw "some of the progress fields are missing";     
+
+        return "Badge updated!";
     }
 };
