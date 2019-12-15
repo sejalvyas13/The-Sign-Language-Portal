@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
-// var userInfoJson = require('../data/userInfo.json');
 
 router.get('/', async (req, res) => {
     if (req.session.AuthCookie === undefined) {
