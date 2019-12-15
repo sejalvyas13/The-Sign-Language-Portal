@@ -75,13 +75,7 @@ module.exports = {
 
         if (scores) {            
 
-            // updatedProgress = {
-            //     user_id: ObjectId(user_id),
-            //     scores: scores,
-            //     learning_progress: learning_progress,
-            //     learned_sl: learned_sl,
-            //     badges: badges
-            // };
+        
             const updatedInfo = await progressCollection.update(  
                 { user_id: ObjectId(user_id) }, 
                 { $set: { scores: scores  } } 

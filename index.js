@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const static = express.static(__dirname + "/public");
-const api = require('./quickstart');
+// const api = require('./quickstart');
 const seed = require('./seed');
 
 const configRoutes = require("./routes");
@@ -47,7 +47,7 @@ configRoutes(app);
 async function main(){
   try{
     // TODO: uncomment to run seed
-    // await seed.runSetup();
+    await seed.runSetup();
   }
   catch(e){
     console.log({"message" : e});

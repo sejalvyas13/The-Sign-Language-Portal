@@ -1,14 +1,13 @@
 {
-  "name": "lab_7",
+  "name": "final_project",
   "version": "1.0.0",
-  "description": "CS 546-A Lab 7",
+  "description": "CS 546-A Final Project",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js",
     "start": "node index.js",
     "start_gcp": "node quickstart.js"
   },
-  "author": "Viveksinh 10441787",
+  "author": "Group 23",
   "license": "MIT",
   "dependencies": {
     "@google-cloud/speech": "^3.5.3",

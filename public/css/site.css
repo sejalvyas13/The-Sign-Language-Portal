@@ -101,7 +101,9 @@ img{
 span#unError{
   font-size: small;
   color: red;
+  background-color: white;
 }
+
 #mainHeader{
   color: #000000;
   font-family: 'Courier New', Courier, monospace;

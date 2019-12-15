@@ -39,21 +39,6 @@ router.post("/", async (req, res) => {
       //store a cookie
       req.session.AuthCookie = userInfo.username;
 
-      //set userInfo json
-      // userInfoJson._id = userdetails._id.toString();
-      // userInfoJson.firstname = userdetails.firstname;
-      // userInfoJson.lastname = userdetails.lastname;
-      // userInfoJson.username = userdetails.username;
-      // userInfoJson.hashedPwd = userdetails.hashedPwd;
-      // userInfoJson.userType = userdetails.userType;
-      // userInfoJson.profileViews = userdetails.profileViews;
-
-      // fs.writeFile('data/userInfo.json', JSON.stringify(userInfoJson), function (err) {
-      //   if (err) return console.log(err);
-      //   console.log("updated file:", JSON.stringify(userInfoJson));
-      //   console.log("writing to " + 'data/userInfo.json');
-      // });
-
       res.redirect("/dashboard");
     } else {
       res.render("login/loginMain", {
