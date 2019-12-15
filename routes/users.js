@@ -55,7 +55,7 @@ router.get('/profile', async (req, res) => {
                 contributionsInfo: contriSize,
                 progressInfo: progressVal
             }
-            console.log(contributionsVal)
+            console.log(contributions)
             res.render("users/profile", { userData: allData, isDisplayLogout: true });
         } catch (e) {
             res.status(500).json({ error: e });
