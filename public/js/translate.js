@@ -18,7 +18,8 @@
             recognition.stop()
         }
       }
-      //document.getElementById('spoken').innerHTML = finalTranscript + '<i style="color:#ddd;">' + interimTranscript + '</>';
+      
+      $('spoken').html(interimTranscript);
       var requestConfig = {
         method: "POST",
         url: "/signs/fromText",
@@ -62,7 +63,7 @@
           success: function (responseMessage) {
               console.log("In success", responseMessage);
               var newElement = $(responseMessage);
-              document.getElementById('spoken').innerHTML = responseMessage.text;
+              $('spoken').html(responseMessage.text);
               /**TODO : Convert this piece into jquery */
               if(document.getElementById('aslImg')){
                   if(document.getElementById('errorMessage')){
@@ -93,7 +94,8 @@
                   document.getElementById('signObj').appendChild(x);
 
               }
-              
+              document.getElementById('listening').innerHTML = "Stopped listening!";
+              recognition.stop();
           },
           error: function (data) {
               $('#signObj').empty();
@@ -103,6 +105,7 @@
                 document.getElementById("aslImg").remove();
               }
               if(document.getElementById('errorMessage')){
+               var x = document.getElementById('errorMessage');
                 x.innerHTML = "Sorry we couldn't find that sign! We're constantly trying to improve!";
                 document.getElementById('signObj').appendChild(x);
               }
