@@ -37,9 +37,33 @@ router.get('/profile', async (req, res) => {
                 contributionsInfo: contributions.length,
                 progressInfo: progress
             }
+<<<<<<< HEAD
+            console.log("progress data")
+            console.log(allData.progressInfo)
+            var userdetails = await usersData.getUserByUsername(req.session.AuthCookie);
+            console.log('logged in user id:', userdetails._id);
+            var badge = {test_badge: "Bronze",contribution_badge : "Bronze"};
+            if(allData.progressInfo.beginner + allData.progressInfo.intermediate + allData.progressInfo.advanced > 20){
+                badge = {test_badge: "Gold",contribution_badge : "Bronze"};
+            }
+            else if(allData.progressInfo.beginner + allData.progressInfo.intermediate + allData.progressInfo.advanced > 10){
+                badge = {test_badge: "Silver",contribution_badge : "Bronze"};
+            }
+
+            if(contributions.length > 20){
+                badge.contribution_badge = "Gold";
+            }
+            else if(contributions.length > 10){
+                badge.contribution_badge = "Silver";
+            }
+            console.log(badge)
+            await progressData.updateBadgesProgress(userdetails._id, badge);
+            res.render("users/profile", { userData: allData, isDisplayLogout: true, badges  : badge});
+=======
             console.log(contributions)
             
             res.render("users/profile", { userData: allData, isDisplayLogout: true });
+>>>>>>> 6852ac514df0381e3f508a46310dbaf935e949bd
         } catch (e) {
             res.status(500).json({ error: e });
         }
